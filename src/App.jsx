@@ -1,38 +1,38 @@
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes, Link, Navigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
-// Importación de las páginas
-import Detalle from './Paginas/Detalle'
-import Favoritos from './Paginas/favoritos'
-import Home from './Paginas/Home'
-import Informativa from './Paginas/informativa'
-import Mapa from './Paginas/Mapa'
-
-import './App.css'
+import Home from "./Paginas/home";
+import Favoritos from "./Paginas/favoritos";
+import Mapa from "./Paginas/mapa";
+import Informativa from "./Paginas/informativa";
+import Detalle from "./Paginas/detalle";
+import { AppProvider } from './Paginas/contexto';
 
 function App() {
-  return (
-    <BrowserRouter>
-      {/* Menú de navegación */}
-      <nav className="c-menu">
-        <Link to="/">Home</Link>
-        <Link to="/informativa">Informativa</Link>
-        {/* aquí ya con parámetros para que useParams funcione */}
-        <Link to="/detalle/antioquia/05001">Detalle Medellín</Link>
-        <Link to="/favoritos">Favoritos</Link>
-        <Link to="/mapa">Mapa</Link>
-      </nav>
 
-      {/* Rutas */}
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/informativa" element={<Informativa />} />
-        {/* ruta con parámetros dinámicos */}
-        <Route path="/detalle/:depto/:municipio" element={<Detalle />} />
-        <Route path="/favoritos" element={<Favoritos />} />
-        <Route path="/mapa" element={<Mapa />} />
-      </Routes>
-    </BrowserRouter>
+  return (
+    <>
+    <AppProvider>
+      <Router>
+
+          <nav className="c-menu">
+            <Link to="/">Home</Link>
+            <Link to="/informativa">Informativa</Link>
+            <Link to="/mapa">Mapa</Link>
+            <Link to="/favoritos">Favoritos</Link>
+          </nav>
+
+
+        <Routes>
+            <Route path="/" element={<Home /> } />
+            <Route path="/informativa" element={<Informativa /> } />
+            <Route path="/mapa" element={<Mapa /> } />
+            <Route path="/favoritos" element={<Favoritos /> } />
+            <Route path="/detalle/:depto/:municipio" element={<Detalle /> } />
+        </Routes>
+      </Router>
+    </AppProvider>
+    </>
   )
 }
 
